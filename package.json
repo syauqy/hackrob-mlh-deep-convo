@@ -18,11 +18,14 @@
     "@chakra-ui/react": "^1.3.2",
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.1.5",
+    "dotenv": "^8.2.0",
     "framer-motion": "^3.3.0",
     "gatsby": "^2.26.1",
+    "gatsby-source-airtable": "^2.1.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-icons": "^4.2.0"
+    "react-icons": "^4.2.0",
+    "swr": "^0.4.2"
   },
   "devDependencies": {
     "prettier": "2.2.1"
