@@ -16,11 +16,12 @@ import {
     Stack,
     Link,
     Spinner,
-    useToast
+    useToast,
+    Icon
 } from '@chakra-ui/react'
 import {graphql, useStaticQuery} from 'gatsby';
 import {ArrowForwardIcon} from '@chakra-ui/icons'
-import {FaGithub} from "react-icons/fa";
+import {FaRegComments} from "react-icons/fa";
 import '../styles/app.css'
 
 export default function App() {
@@ -174,17 +175,27 @@ function FilterData(data) {
 
     return (
         <div>
-            <Container centerContent pt="8" pb="8">
-                <VStack spacing={6}>
-                    <Button onClick={increaseNumber}>Draw Card</Button>
+            <Container centerContent pt="8" pb="8" maxW="xl" h="100vh" alignItems="center" className="container" color="#1F2C42">
+                <div onClick={increaseNumber} className="card-container">
+                <Box w="50vh" maxW="sm" h="70vh" p={4} className="card" borderWidth="2px" borderRadius="xl" alignItems="center" borderColor="gray.200" shadow="md">
+                    <Box w="100%" maxW="sm" h="100%" p={4} className="inner-card" borderWidth="4px" alignItems="center" borderColor="gray.700">
+                    <VStack spacing={6}>
+                        <Box h="40px">
+                        </Box>
+                <Icon as={FaRegComments} w={10} h={10} />
                     {number <= randomQuestion.length
                         ? randomQuestion[number].question !== undefined
-                            ? <div onClick={increaseNumber} className="card">
-                                    <Heading id="question-card" as='h1' size="2xl" align="center">{randomQuestion[number].question}</Heading>
-                                </div>
+                            ? <Box>                     
+                                <Heading id="question-card" as='h1' size="lg" align="center">{randomQuestion[number].question}</Heading>
+                            </Box>
                             : ''
                         : ''}
+                        <Heading as='h1' size="xl" align="center">. . . . .</Heading>
                 </VStack>
+                    </Box>
+                </Box>
+                </div>
+                
             </Container>
         </div>
     )

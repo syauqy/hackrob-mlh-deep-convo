@@ -1,3 +1,7 @@
 .card{
     cursor: pointer;
 }
+
+.inner-card{
+    border-radius: 30px;
+}
