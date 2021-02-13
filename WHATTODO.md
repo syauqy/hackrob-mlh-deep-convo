@@ -6,12 +6,12 @@
 - Setup public GitHub repo [done]
 - Generate new question when card clicked [done]
 - Main card layout styling [done]
-- Complete the Bahasa Indonesia question list in Airtable
-- Complete the English question list in Airtable
+- Complete the Bahasa Indonesia question list in Airtable [done]
+- Complete the English question list in Airtable [done]
 - Add game instruction pop up at initial state
 - Add pop up instruction when questions is finish
 - Add credits and attribution
-- Add language switch
+- Add language switch [failed]
 - Add react helmet
 - Add page title and meta-tags
 - Add favicon
