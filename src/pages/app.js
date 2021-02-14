@@ -25,6 +25,7 @@ import {graphql, useStaticQuery} from 'gatsby';
 import {ArrowForwardIcon} from '@chakra-ui/icons'
 import {FaRegComments} from "react-icons/fa";
 import '../styles/app.css'
+import Attribution from '../components/attribution'
 
 export default function App() {
     // const {colorMode, toggleColorMode} = useColorMode();
@@ -109,7 +110,7 @@ function GetQuestions() {
 
     const questions = response.data;
 
-    console.log('questions', questions);
+    // console.log('questions', questions);
     return (
         <div>
             <FilterData questions={questions}/>
@@ -128,20 +129,15 @@ function FilterData(data) {
         .questions
         .records
         .map(q => {
-            return {
-                'id': q.fields.indo,
-                'en': q.fields.en
-        }
+            return {'id': q.fields.indo, 'en': q.fields.en}
         })
 
     // const pertanyaan = data;
 
     let randomQuestion;
 
-    console.log('data', data
-    .questions
-    .records );
-    console.log('pertanyaan', pertanyaan);
+    // console.log('data', data.questions.records);
+    // console.log('pertanyaan', pertanyaan);
 
     function shuffle(a) {
         for (let i = a.length - 1; i > 0; i--) {
@@ -157,111 +153,98 @@ function FilterData(data) {
         return cards;
     }
 
+    // const card = document.querySelector(".inner-card");
+
     function increaseNumber() {
         number++;
-                if (number < randomQuestion.length) {
-                    console.log('question', number, randomQuestion[number].en);
-                    if (randomQuestion[number].en !== undefined) {
-                        document
-                            .querySelector('#question-card')
-                            .innerText = randomQuestion[number].en;
-                    } else {
-                        document
-                            .querySelector('#question-card')
-                            .innerText = 'tidak ada data';
-                    }
-                } else {
-                    document
-                        .querySelector('#question-card')
-                        .innerText = 'data habis';
-                }
+        if (number < randomQuestion.length) {
+            console.log('question', number, randomQuestion[number].en);
+            if (randomQuestion[number].en !== undefined) {
+                document
+                    .querySelector('#question-card')
+                    .innerText = randomQuestion[number].en;
+            } else {
+                document
+                    .querySelector('#question-card')
+                    .innerText = 'tidak ada data';
+            }
+        } else {
+            document
+                .querySelector('#question-card')
+                .innerText = '';
+        }
 
     }
+    
 
-    //shuffle pertama setelah mulai game, cukup sekali aja
-    // function startGame(){
-    //     randomQuestion = shuffleCards();
-    //     console.log('random start', randomQuestion)
-    // }
+
+    // shuffle pertama setelah mulai game, cukup sekali aja function startGame(){
+    // randomQuestion = shuffleCards();     console.log('random start',
+    // randomQuestion) }
 
     randomQuestion = shuffleCards();
-    
 
     console.log('random', randomQuestion)
 
     return (
         <div className="world">
-            <Container
-                centerContent
-                pt="8"
-                pb="8"
-                maxW="xl"
-                // w="100vw"
-                h="100vh"
-                alignItems="center"
-                className="container"
-                // bgColor="#1F2C42"
+            <Container centerContent pt="8" pb="8" maxW="xl" // w="100vw"
+                h="100vh" alignItems="center" className="container" // bgColor="#1F2C42"
                 color="#1F2C42">
-                {/* <Stack align="center" direction="row" p={4} mb={2}>
-                    <Heading as='h4' size="sm">ID</Heading>
-                    <Switch size="md"/>
-                    <Heading as='h4' size="sm">EN</Heading>
-                </Stack> */}
+
                 {/* <Button onClick={startGame} mb={4}>Mulai Permainan</Button> */}
-                <div onClick={()=>increaseNumber()} className="card-container" role="button" onKeyUp={increaseNumber}>
-                    <Box
-                        width={{
-                            xl: "40vh",
-                lg: "40vh",
-                md: "50vh" ,
-                sm: "45vh" ,
-                base: "45vh"
-                        }}
-                        // maxW="sm"
+                <div
+                    onClick={() => increaseNumber()}
+                    className="card-container"
+                    role="button"
+                    onKeyUp={increaseNumber}>
+                    <Box width={{
+                        xl: "40vh",
+                        lg: "40vh",
+                        md: "50vh",
+                        sm: "45vh",
+                        base: "45vh"
+                    }} // maxW="sm"
                         h={{
-                            xl: "70vh",
-                lg: "70vh",
-                md: "80vh" ,
-                sm: "80vh" ,
-                base: "80vh"
-                        }}
-                        p={4}
-                        className="card"
-                        borderWidth="2px"
-                        borderRadius="xl"
-                        alignItems="center"
-                        borderColor="gray.200"
-                        shadow="md" bgColor="white">
-                            <Box
-                            w="100%"
-                            // maxW="sm"
-                            h="100%"
-                            p={4}
-                            className="inner-card"
-                            borderWidth="4px"
-                            alignItems="center"
-                            borderColor="gray.700">
-                            <VStack spacing={6}>
+                        xl: "70vh",
+                        lg: "70vh",
+                        md: "80vh",
+                        sm: "80vh",
+                        base: "80vh"
+                    }} p={4} className="card" borderWidth="2px" borderRadius="xl" alignItems="center" borderColor="gray.200" shadow="md" bgColor="white">
+                        <Box w="100%" // maxW="sm"
+                            h="100%" p={4} className="inner-card" borderWidth="4px" alignItems="center" borderColor="gray.700">
+                            <VStack spacing={6} className="card_face">
                                 <Box h="40px"></Box>
-                                <Image boxSize={{xl: "80px", lg: "80px", md: "60px", sm:"50px", base:"50px"}} src="https://ik.imagekit.io/ps3xes4nrg/convo_bubble_F9g40JSsaXZ.png" alt="Convo" />
-                                {/* <Icon as={FaRegComments} w={10} h={10}/>  */}
-                                {number <= randomQuestion.length? 
-                                    randomQuestion[number].en!== undefined ? <Box>
-                                                <Heading id="question-card" as='h1' size="lg"
-                        align="center">{randomQuestion[number].en}</Heading>
+                                <Image
+                                    boxSize={{
+                                    xl: "80px",
+                                    lg: "80px",
+                                    md: "60px",
+                                    sm: "50px",
+                                    base: "50px"
+                                }}
+                                    src="https://ik.imagekit.io/ps3xes4nrg/convo_bubble_F9g40JSsaXZ.png"
+                                    alt="Convo"/> {/* <Icon as={FaRegComments} w={10} h={10}/>  */}
+                                {number <= randomQuestion.length
+                                    ? randomQuestion[number].en !== undefined
+                                        ? <Box>
+                                                <Heading id="question-card" as='h1' size="lg" align="center">{randomQuestion[number].en}</Heading>
                                             </Box>
                                         : ''
-                                    : randomQuestion[number].en!== undefined ? <Box>
-                                    <Heading id="question-card" as='h1' size="lg" align="center">{randomQuestion[number].en}</Heading>
-                                </Box>
-                            : ''}
+                                    : randomQuestion[number].en !== undefined
+                                        ? <Box>
+                                                <Heading id="question-card" as='h1' size="lg" align="center">{randomQuestion[number].en}</Heading>
+                                            </Box>
+                                        : ''}
                                 <Heading as='h1' size="xl" align="center">. . . . .</Heading>
                             </VStack>
-                        </Box> 
+                        </Box>
                     </Box>
                 </div>
 
             </Container>
+            <Attribution/>
         </div>
     )
 

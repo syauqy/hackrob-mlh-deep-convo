@@ -7,7 +7,7 @@ export default function Home() {
     return (
         <ChakraProvider>
             <Helmet>
-                <meta charSet="utf-8"/>
+                <meta charSet="utf-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
                 <title>Convo - Have a deep conversation online</title>
                 <link rel="canonical" href="https://hackrob-convo.vercel.app"/>
                 <meta name="description" content='An unofficial online game adaption of Eksplorasa board game. Have a deep conversation online'/>

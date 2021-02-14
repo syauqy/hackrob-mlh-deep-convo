@@ -10,7 +10,7 @@
 - Complete the English question list in Airtable [done]
 - Add game instruction pop up at initial state
 - Add pop up instruction when questions is finish
-- Add credits and attribution
+- Add credits and attribution [done]
 - Add language switch [failed]
 - Styling the page
 - Add react helmet [done]
