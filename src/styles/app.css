@@ -12,6 +12,7 @@
     transform-style: preserve-3d;
     cursor: pointer;
     position: relative;
+    border-radius: 30px;
 }
 
 .world {

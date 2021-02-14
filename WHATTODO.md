@@ -17,8 +17,8 @@
 - Add page title and meta-tags [done]
 - Add favicon [done]
 - Deploy to vercel [done]
-- Create a 2 min video presentation
-- Submit to HackRob
+- Create a 2 min video presentation [done]
+- Submit to HackRob [done]
 
 ## Additional
 - Add 404 page
