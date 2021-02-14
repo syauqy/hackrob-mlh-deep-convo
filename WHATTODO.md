@@ -8,11 +8,11 @@
 - Main card layout styling [done]
 - Complete the Bahasa Indonesia question list in Airtable [done]
 - Complete the English question list in Airtable [done]
-- Add game instruction pop up at initial state
-- Add pop up instruction when questions is finish
+- Add game instruction pop up at initial state [done]
+- Add pop up instruction when questions is finish [done]
 - Add credits and attribution [done]
 - Add language switch [failed]
-- Styling the page
+- Styling the page [done]
 - Add react helmet [done]
 - Add page title and meta-tags [done]
 - Add favicon [done]

@@ -157,6 +157,7 @@ function FilterData(data) {
         const cards = shuffle(pertanyaan);
         // console.log('cards', randomQuestion);
         localStorage.setItem('gamefinish', false);
+        localStorage.setItem('newgame', true);
         return cards;
     }
 
@@ -164,8 +165,8 @@ function FilterData(data) {
 
     function increaseNumber() {
         number++;
-        if (number <= 10) {
-            console.log('question', number, randomQuestion[number].en);
+        if (number <= 19) {
+            // console.log('question', number, randomQuestion[number].en);
             if (randomQuestion[number].en !== undefined) {
                 document
                     .querySelector('#question-card')
@@ -182,25 +183,26 @@ function FilterData(data) {
                 .innerText = '';
                 document.querySelector(".finish-modal").click();
         }
-        console.log('lokal storage', localStorage.getItem('gamefinish'));
+        // console.log('lokal storage', localStorage.getItem('gamefinish'));
 
     }
-    
 
-
-    // shuffle pertama setelah mulai game, cukup sekali aja function startGame(){
-    // randomQuestion = shuffleCards();     console.log('random start',
-    // randomQuestion) }
 
     randomQuestion = shuffleCards();
 
-    console.log('random', randomQuestion)
+    // console.log('random', randomQuestion)
+    // document.querySelector(".start-modal").click();
 
     return (
         <div className="world">
             <Container centerContent pt="8" pb="8" maxW="xl" // w="100vw"
                 h="100vh" alignItems="center" className="container" // bgColor="#1F2C42"
                 color="#1F2C42">
+                    <Box>
+                    <Text fontSize="xs" fontWeight={400} align="center" mb={2}>
+                    Answer the questions shown on the card one by one with your partner. Tap or click the card to draw a new question.
+                        </Text>
+                    </Box>
 
                 {/* <Button onClick={startGame} mb={4}>Mulai Permainan</Button> */}
                 <div
@@ -236,7 +238,7 @@ function FilterData(data) {
                                 }}
                                     src="https://ik.imagekit.io/ps3xes4nrg/convo_bubble_F9g40JSsaXZ.png"
                                     alt="Convo"/> {/* <Icon as={FaRegComments} w={10} h={10}/>  */}
-                                {number <= 10
+                                {number <= 19
                                     ? randomQuestion[number].en !== undefined
                                         ? <Box>
                                                 <Heading id="question-card" as='h1' size="lg" align="center">{randomQuestion[number].en}</Heading>
@@ -254,6 +256,7 @@ function FilterData(data) {
                 </div>
                 <Attribution/>
             <FinishModal />
+            <InstructionModal />
             </Container>
         </div>
     )
@@ -263,7 +266,7 @@ function FilterData(data) {
 function FinishModal() {
 
     const {isOpen, onOpen, onClose} = useDisclosure();
-    console.log('lokal storage', localStorage.getItem('gamefinish'));
+    // console.log('lokal storage', localStorage.getItem('gamefinish'));
 
     useEffect(() => {
         if (localStorage.getItem('gamefinish') === 'true') {
@@ -273,7 +276,7 @@ function FinishModal() {
 
     return (
         <div>
-            <Button className="finish-modal" onClick={onOpen} visibility="hidden">Open Modal</Button>
+            <Button className="finish-modal" onClick={onOpen} visibility="hidden" style={{position: 'absolute', bottom: '0', left: '0'}}></Button>
 
             <Modal
                 isOpen={isOpen}
@@ -329,17 +332,17 @@ function FinishModal() {
 function InstructionModal() {
 
     const {isOpen, onOpen, onClose} = useDisclosure();
-    console.log('lokal storage', localStorage.getItem('gamefinish'));
+    // console.log('lokal storage', localStorage.getItem('newgame'));
 
     useEffect(() => {
-        if (localStorage.getItem('gamefinish') === 'true') {
+        if (localStorage.getItem('newgame') === 'true') {
             onOpen()
         }
     });
 
     return (
         <div>
-            <Button className="finish-modal" onClick={onOpen} visibility="hidden">Open Modal</Button>
+            <Button className="start-modal" onClick={onOpen} visibility="hidden" style={{position: 'absolute', bottom: '0', left: '0'}}></Button>
 
             <Modal
                 isOpen={isOpen}
@@ -357,27 +360,33 @@ function InstructionModal() {
                 <ModalOverlay/>
                 <ModalContent>
                     <ModalHeader>
-                        <Heading as="h2" size="lg">Thank you for playing Convo!!</Heading>
+                        <Heading as="h2" size="lg" alignContent="center">Welcome to Convo!!</Heading>
                     </ModalHeader>
                     <ModalBody>
-                        <VStack spacing={2}>
+                        <VStack spacing={4}>
                         <Image
-                                    objectFit="cover"
-                                    src="https://images.tokopedia.net/img/cache/850/BgtCLw/2020/11/24/d966b0ce-c353-4ca7-8dd2-211a37fe06c4.jpg.webp"
-                                    alt="Kartu Eksplorasa"/>
-                                    <Text fontSize="xs" fontWeight={400}>
-                            Image by Eksplorasa
-                        </Text>
-                                    <Text fontSize="md" fontWeight={400}>
-                                    Hope you had a good conversation with Convo. This game only has 20 questions.
+                                    boxSize={{
+                                    xl: "80px",
+                                    lg: "80px",
+                                    md: "60px",
+                                    sm: "50px",
+                                    base: "50px"
+                                }}
+                                    src="https://ik.imagekit.io/ps3xes4nrg/convo_bubble_F9g40JSsaXZ.png"
+                                    alt="Convo"/> 
+                                    <Text fontSize="sm" fontWeight={400} align="justify">Create meaningful conversations with your friends and loved ones. Convo consists of a series of questions that you need to answer with honest and sincere answers.
                         </Text>
                         <Text fontSize="md" fontWeight={400}>
-                        Please do check out the Eksplorasa Cards, which contain up to 96 questions that can help you have wonderful conversations with your friends and loved ones.
+                        Answer the questions shown on the card one by one with your partner. The extensional questions regarding the topic can make the conversation more engaging.
                         </Text>
-                        <Text fontSize="md"><Link fontWeight={600} color="#06AB11" href="https://www.tokopedia.com/kartueksplorasa/kartu-eksplorasa" isExternal>Buy Eksplorasa Cards{' '}<ExternalLinkIcon mx="2px" /></Link></Text> 
-                        <Text fontSize="md"><Link fontWeight={600} color="#1F2C42" href="https://www.instagram.com/kartueksplorasa/" isExternal>Eksplorasa Cards in Instagram{' '}<ExternalLinkIcon mx="2px" /></Link></Text> 
-                        <Button rightIcon={<ArrowForwardIcon /> } onClick={()=>window.location.reload()} colorScheme="teal" variant="outline">
-    Replay the Game
+                        <Text fontSize="md" fontWeight={400}>
+                        Once you've finished with the answer, tap or click the card to draw a new question. Enjoy the game!!
+                        </Text>
+                        <Button rightIcon={<ArrowForwardIcon /> } onClick={() => {
+                            localStorage.setItem('newgame', false);
+                            onClose()
+                        }} colorScheme="teal" variant="outline">
+    Understand
   </Button>
                         </VStack>
                         
