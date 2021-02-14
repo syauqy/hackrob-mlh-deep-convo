@@ -19,13 +19,19 @@ import {
     useToast,
     Icon,
     Switch,
-    Image
+    Image, useDisclosure, Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody, Divider
 } from '@chakra-ui/react'
 import {graphql, useStaticQuery} from 'gatsby';
-import {ArrowForwardIcon} from '@chakra-ui/icons'
+import {ArrowForwardIcon, ExternalLinkIcon} from '@chakra-ui/icons'
 import {FaRegComments} from "react-icons/fa";
 import '../styles/app.css'
 import Attribution from '../components/attribution'
+// import FinishModal from '../components/finishModal'
 
 export default function App() {
     // const {colorMode, toggleColorMode} = useColorMode();
@@ -150,6 +156,7 @@ function FilterData(data) {
     function shuffleCards() {
         const cards = shuffle(pertanyaan);
         // console.log('cards', randomQuestion);
+        localStorage.setItem('gamefinish', false);
         return cards;
     }
 
@@ -157,7 +164,7 @@ function FilterData(data) {
 
     function increaseNumber() {
         number++;
-        if (number < randomQuestion.length) {
+        if (number <= 10) {
             console.log('question', number, randomQuestion[number].en);
             if (randomQuestion[number].en !== undefined) {
                 document
@@ -169,10 +176,13 @@ function FilterData(data) {
                     .innerText = 'tidak ada data';
             }
         } else {
+            localStorage.setItem('gamefinish', true);
             document
                 .querySelector('#question-card')
                 .innerText = '';
+                document.querySelector(".finish-modal").click();
         }
+        console.log('lokal storage', localStorage.getItem('gamefinish'));
 
     }
     
@@ -226,7 +236,7 @@ function FilterData(data) {
                                 }}
                                     src="https://ik.imagekit.io/ps3xes4nrg/convo_bubble_F9g40JSsaXZ.png"
                                     alt="Convo"/> {/* <Icon as={FaRegComments} w={10} h={10}/>  */}
-                                {number <= randomQuestion.length
+                                {number <= 10
                                     ? randomQuestion[number].en !== undefined
                                         ? <Box>
                                                 <Heading id="question-card" as='h1' size="lg" align="center">{randomQuestion[number].en}</Heading>
@@ -242,10 +252,142 @@ function FilterData(data) {
                         </Box>
                     </Box>
                 </div>
-
+                <Attribution/>
+            <FinishModal />
             </Container>
-            <Attribution/>
         </div>
     )
 
+}
+
+function FinishModal() {
+
+    const {isOpen, onOpen, onClose} = useDisclosure();
+    console.log('lokal storage', localStorage.getItem('gamefinish'));
+
+    useEffect(() => {
+        if (localStorage.getItem('gamefinish') === 'true') {
+            onOpen()
+        }
+    });
+
+    return (
+        <div>
+            <Button className="finish-modal" onClick={onOpen} visibility="hidden">Open Modal</Button>
+
+            <Modal
+                isOpen={isOpen}
+                closeOnOverlayClick={false}
+                onClose={onClose}
+                isCentered
+                width={{
+                    xl: "40vh",
+                    lg: "40vh",
+                    md: "50vh",
+                    sm: "45vh",
+                    base: "45vh"
+                }}
+                motionPreset="slideInBottom">
+                <ModalOverlay/>
+                <ModalContent>
+                    <ModalHeader>
+                        <Heading as="h2" size="lg">Thank you for playing Convo!!</Heading>
+                    </ModalHeader>
+                    <ModalBody>
+                        <VStack spacing={2}>
+                        <Image
+                                    objectFit="cover"
+                                    src="https://images.tokopedia.net/img/cache/850/BgtCLw/2020/11/24/d966b0ce-c353-4ca7-8dd2-211a37fe06c4.jpg.webp"
+                                    alt="Kartu Eksplorasa"/>
+                                    <Text fontSize="xs" fontWeight={400}>
+                            Image by Eksplorasa
+                        </Text>
+                                    <Text fontSize="md" fontWeight={400}>
+                                    Hope you had a good conversation with Convo. This game only has 20 questions.
+                        </Text>
+                        <Text fontSize="md" fontWeight={400}>
+                        Please do check out the Eksplorasa Cards, which contain up to 96 questions that can help you have wonderful conversations with your friends and loved ones.
+                        </Text>
+                        <Text fontSize="md"><Link fontWeight={600} color="#06AB11" href="https://www.tokopedia.com/kartueksplorasa/kartu-eksplorasa" isExternal>Buy Eksplorasa Cards{' '}<ExternalLinkIcon mx="2px" /></Link></Text> 
+                        <Text fontSize="md"><Link fontWeight={600} color="#1F2C42" href="https://www.instagram.com/kartueksplorasa/" isExternal>Eksplorasa Cards in Instagram{' '}<ExternalLinkIcon mx="2px" /></Link></Text> 
+                        <Button rightIcon={<ArrowForwardIcon /> } onClick={()=>window.location.reload()} colorScheme="teal" variant="outline">
+    Replay the Game
+  </Button>
+                        </VStack>
+                        
+                    </ModalBody>
+                    <Divider />
+                    <ModalFooter>
+                    <Text fontSize="xs" color="gray.500">Convo is an unofficial online game adaptation of the Eksplorasa board game. All the questions and property rights are owned by the Eksplorasa team.</Text> 
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
+        </div>
+    )
+}
+
+function InstructionModal() {
+
+    const {isOpen, onOpen, onClose} = useDisclosure();
+    console.log('lokal storage', localStorage.getItem('gamefinish'));
+
+    useEffect(() => {
+        if (localStorage.getItem('gamefinish') === 'true') {
+            onOpen()
+        }
+    });
+
+    return (
+        <div>
+            <Button className="finish-modal" onClick={onOpen} visibility="hidden">Open Modal</Button>
+
+            <Modal
+                isOpen={isOpen}
+                closeOnOverlayClick={false}
+                onClose={onClose}
+                isCentered
+                width={{
+                    xl: "40vh",
+                    lg: "40vh",
+                    md: "50vh",
+                    sm: "45vh",
+                    base: "45vh"
+                }}
+                motionPreset="slideInBottom">
+                <ModalOverlay/>
+                <ModalContent>
+                    <ModalHeader>
+                        <Heading as="h2" size="lg">Thank you for playing Convo!!</Heading>
+                    </ModalHeader>
+                    <ModalBody>
+                        <VStack spacing={2}>
+                        <Image
+                                    objectFit="cover"
+                                    src="https://images.tokopedia.net/img/cache/850/BgtCLw/2020/11/24/d966b0ce-c353-4ca7-8dd2-211a37fe06c4.jpg.webp"
+                                    alt="Kartu Eksplorasa"/>
+                                    <Text fontSize="xs" fontWeight={400}>
+                            Image by Eksplorasa
+                        </Text>
+                                    <Text fontSize="md" fontWeight={400}>
+                                    Hope you had a good conversation with Convo. This game only has 20 questions.
+                        </Text>
+                        <Text fontSize="md" fontWeight={400}>
+                        Please do check out the Eksplorasa Cards, which contain up to 96 questions that can help you have wonderful conversations with your friends and loved ones.
+                        </Text>
+                        <Text fontSize="md"><Link fontWeight={600} color="#06AB11" href="https://www.tokopedia.com/kartueksplorasa/kartu-eksplorasa" isExternal>Buy Eksplorasa Cards{' '}<ExternalLinkIcon mx="2px" /></Link></Text> 
+                        <Text fontSize="md"><Link fontWeight={600} color="#1F2C42" href="https://www.instagram.com/kartueksplorasa/" isExternal>Eksplorasa Cards in Instagram{' '}<ExternalLinkIcon mx="2px" /></Link></Text> 
+                        <Button rightIcon={<ArrowForwardIcon /> } onClick={()=>window.location.reload()} colorScheme="teal" variant="outline">
+    Replay the Game
+  </Button>
+                        </VStack>
+                        
+                    </ModalBody>
+                    <Divider />
+                    <ModalFooter>
+                    <Text fontSize="xs" color="gray.500">Convo is an unofficial online game adaptation of the Eksplorasa board game. All the questions and property rights are owned by the Eksplorasa team.</Text> 
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
+        </div>
+    )
 }
