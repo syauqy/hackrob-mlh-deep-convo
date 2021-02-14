@@ -12,15 +12,18 @@
 - Add pop up instruction when questions is finish
 - Add credits and attribution
 - Add language switch [failed]
-- Add react helmet
-- Add page title and meta-tags
-- Add favicon
-- Deploy to vercel
+- Styling the page
+- Add react helmet [done]
+- Add page title and meta-tags [done]
+- Add favicon [done]
+- Deploy to vercel [done]
 - Create a 2 min video presentation
 - Submit to HackRob
 
 ## Additional
+- Add 404 page
 - Setup and connect to a custom domain.
+- Add recoil for state management
 - Add framer motion to create card animation transition
 - Add Emoji on the card to represent the question.
 - Add dark theme

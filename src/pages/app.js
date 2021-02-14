@@ -18,7 +18,8 @@ import {
     Spinner,
     useToast,
     Icon,
-    Switch
+    Switch,
+    Image
 } from '@chakra-ui/react'
 import {graphql, useStaticQuery} from 'gatsby';
 import {ArrowForwardIcon} from '@chakra-ui/icons'
@@ -189,15 +190,17 @@ function FilterData(data) {
     console.log('random', randomQuestion)
 
     return (
-        <div>
+        <div className="world">
             <Container
                 centerContent
                 pt="8"
                 pb="8"
                 maxW="xl"
+                // w="100vw"
                 h="100vh"
                 alignItems="center"
                 className="container"
+                // bgColor="#1F2C42"
                 color="#1F2C42">
                 {/* <Stack align="center" direction="row" p={4} mb={2}>
                     <Heading as='h4' size="sm">ID</Heading>
@@ -205,21 +208,33 @@ function FilterData(data) {
                     <Heading as='h4' size="sm">EN</Heading>
                 </Stack> */}
                 {/* <Button onClick={startGame} mb={4}>Mulai Permainan</Button> */}
-                <div onClick={increaseNumber} className="card-container">
+                <div onClick={()=>increaseNumber()} className="card-container" role="button" onKeyUp={increaseNumber}>
                     <Box
-                        w="50vh"
-                        maxW="sm"
-                        h="70vh"
+                        width={{
+                            xl: "40vh",
+                lg: "40vh",
+                md: "50vh" ,
+                sm: "45vh" ,
+                base: "45vh"
+                        }}
+                        // maxW="sm"
+                        h={{
+                            xl: "70vh",
+                lg: "70vh",
+                md: "80vh" ,
+                sm: "80vh" ,
+                base: "80vh"
+                        }}
                         p={4}
                         className="card"
                         borderWidth="2px"
                         borderRadius="xl"
                         alignItems="center"
                         borderColor="gray.200"
-                        shadow="md">
+                        shadow="md" bgColor="white">
                             <Box
                             w="100%"
-                            maxW="sm"
+                            // maxW="sm"
                             h="100%"
                             p={4}
                             className="inner-card"
@@ -228,9 +243,12 @@ function FilterData(data) {
                             borderColor="gray.700">
                             <VStack spacing={6}>
                                 <Box h="40px"></Box>
-                                <Icon as={FaRegComments} w={10} h={10}/> {number <= randomQuestion.length? 
+                                <Image boxSize={{xl: "80px", lg: "80px", md: "60px", sm:"50px", base:"50px"}} src="https://ik.imagekit.io/ps3xes4nrg/convo_bubble_F9g40JSsaXZ.png" alt="Convo" />
+                                {/* <Icon as={FaRegComments} w={10} h={10}/>  */}
+                                {number <= randomQuestion.length? 
                                     randomQuestion[number].en!== undefined ? <Box>
-                                                <Heading id="question-card" as='h1' size="lg" align="center">{randomQuestion[number].en}</Heading>
+                                                <Heading id="question-card" as='h1' size="lg"
+                        align="center">{randomQuestion[number].en}</Heading>
                                             </Box>
                                         : ''
                                     : randomQuestion[number].en!== undefined ? <Box>

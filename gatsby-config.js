@@ -23,5 +23,14 @@ module.exports = {
     airtableApi : process.env.AIRTABLE_API_KEY,
     airtableBase : process.env.AIRTABLE_BASEID,
   },
-  plugins: [],
+  plugins: [`gatsby-plugin-react-helmet`,
+  {
+    resolve: `gatsby-plugin-manifest`,
+    options: {
+      name: `hackrob-mlh-convo`,
+      short_name: `convo`,
+      start_url: `/`,
+      icon: `src/images/convo_bubble.png`, // This path is relative to the root of the site.
+    }}
+  ]
 }
